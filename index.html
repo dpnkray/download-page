@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Download Your Course</title>
+  <title>Buy & Download Course</title>
 </head>
-<body style="text-align:center; font-family:sans-serif; margin-top:50px;">
-  <h2>✅ Pay now</h2>
-  <a href="https://rzp.io/rzp/Fq62491">Pay Now</a>
-  <h2>✅ Payment Successful</h2>
-  <p>Your download will start automatically in 3 seconds...</p>
+<body style="text-align:center; margin-top:50px; font-family:sans-serif;">
 
-  <p>If not, click below:</p>
-  <a href="https://drive.google.com/uc?export=download&id=1lL0vnmCUjdTLs64WaK9kn1Rk0GI_ddHn">Download Now</a>
+  <h2>Algorithmic Trading Course</h2>
+  <button id="pay-btn">Pay 1</button>
 
+  <br><br>
+
+  <button id="download-btn" disabled>Download Course</button>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  
   <script>
-    setTimeout(function() {
-      window.location.href = "https://drive.google.com/uc?export=download&id=1lL0vnmCUjdTLs64WaK9kn1Rk0GI_ddHn";
-    }, 3000);
+    var options = {
+        "key": "rzp_live_STxKZLl4f9W3VJ",  // from Razorpay
+        "amount": 1,
+        "currency": "INR",
+        "name": "Algorithmic Trading Course",
+        "description": "Course Payment",
+
+        "handler": function (response){
+            alert("Payment Successful!");
+            
+            // Enable download button
+            document.getElementById("download-btn").disabled = false;
+        }
+    };
+
+    var rzp = new Razorpay(options);
+
+    document.getElementById('pay-btn').onclick = function(e){
+        rzp.open();
+        e.preventDefault();
+    }
+
+    document.getElementById('download-btn').onclick = function(){
+        window.location.href = "https://drive.google.com/uc?export=download&id=1lL0vnmCUjdTLs64WaK9kn1Rk0GI_ddHn";
+    }
   </script>
 
 </body>
