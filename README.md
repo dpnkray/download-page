@@ -17,4 +17,4 @@ This repository contains proprietary course material.
 - Redistribution, resale, or sharing is strictly prohibited.
 - Content is for personal educational use only.
 
-© 2026 [Your Name]. All rights reserved.
+© 2026 Dr. Dipankar Ray. All rights reserved.
