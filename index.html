@@ -6,6 +6,9 @@
 <body style="text-align:center; margin-top:50px; font-family:sans-serif;">
 
   <h2>Algorithmic Trading Course</h2>
+
+  <button id="download-btn_0" disabled>Download Course</button>
+
   <button id="pay-btn">Pay 1</button>
 
   <br><br>
@@ -39,8 +42,12 @@
         e.preventDefault();
     }
 
+    document.getElementById('download-btn_0').onclick = function(){
+        window.location.href = "https://drive.google.com/uc?export=download&id=1lL0vnmCUjdTLs64WaK9kn1Rk0GI_ddHn";
+    }
+
     document.getElementById('download-btn').onclick = function(){
-        window.location.href = "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y";
+        window.location.href = "https://drive.google.com/uc?export=download&id=1lL0vnmCUjdTLs64WaK9kn1Rk0GI_ddHn";
     }
   </script>
 
