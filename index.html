@@ -1,57 +1,141 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Buy & Download Course</title>
+  <title>Algorithmic Trading Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 420px;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #38bdf8;
+    }
+
+    p {
+      font-size: 15px;
+      color: #cbd5f5;
+    }
+
+    .instructions {
+      text-align: left;
+      background: #020617;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #preview-btn {
+      background: #64748b;
+    }
+
+    #pay-btn {
+      background: #22c55e;
+      font-weight: bold;
+    }
+
+    #download-btn {
+      background: #3b82f6;
+    }
+
+    #download-btn:disabled {
+      background: #475569;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
-<body style="text-align:center; margin-top:50px; font-family:sans-serif;">
 
-  <h2>Algorithmic Trading Course</h2>
+<body>
 
-  <button id="download-btn_0">Download Free Preview Course Module</button>
+<div class="container">
+  <h2>📊 Algorithmic Trading Course</h2>
+  <p>Learn Python-based trading strategies & automation</p>
 
-  <br><br>
+  <button id="preview-btn_0">📥 Download Free Preview</button>
 
-  <button id="pay-btn">Pay 19</button>
+  <button id="pay-btn">💳 Pay ₹19</button>
 
-  <br><br>
+  <button id="download-btn" disabled>⬇️ Download Full Course</button>
 
-  <button id="download-btn" disabled>Download Course</button>
+  <!-- Instructions Section -->
+  <div class="instructions">
+    <strong>📦 Download Instructions:</strong><br><br>
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  
-  <script>
-    var options = {
-        "key": "rzp_live_SUVyfrzGVUA4HD",  // from Razorpay
-        "amount": 1900,
-        "currency": "INR",
-        "name": "Algorithmic Trading Course",
-        "description": "Course Payment",
-        "method": {
-        "upi": true
-        },
-        "handler": function (response){
-            alert("Payment Successful!");
-            
-            // Enable download button
-            document.getElementById("download-btn").disabled = false;
-        }
-    };
+    💻 <b>PC Users:</b><br>
+    Download ZIP and extract normally<br><br>
 
-    var rzp = new Razorpay(options);
+    📱 <b>Mobile Users (Android):</b><br>
+    1. Install ZArchiver app <br>
+    2. Download the ZIP file <br>
+    3. Open and extract
+  </div>
+</div>
 
-    document.getElementById('pay-btn').onclick = function(e){
-        rzp.open();
-        e.preventDefault();
-    }
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-    document.getElementById('download-btn_0').onclick = function(){
-        window.location.href = "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y";
-    }
+<script>
+  var options = {
+      "key": "rzp_live_SUVyfrzGVUA4HD",
+      "amount": 1900,
+      "currency": "INR",
+      "name": "Algorithmic Trading Course",
+      "description": "Course Payment",
+      "method": { "upi": true },
 
-    document.getElementById('download-btn').onclick = function(){
-        window.location.href = "https://drive.google.com/uc?export=download&id=1afsYuO_WwhlEPS0hgFWzbK6jUoCAMHQV";
-    }
-  </script>
+      "handler": function (response){
+          alert("✅ Payment Successful!");
+          document.getElementById("download-btn").disabled = false;
+      }
+  };
+
+  var rzp = new Razorpay(options);
+
+  document.getElementById('pay-btn').onclick = function(e){
+      rzp.open();
+      e.preventDefault();
+  }
+
+  document.getElementById('preview-btn_0').onclick = function(){
+      window.location.href = "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y";
+  }
+
+  document.getElementById('download-btn').onclick = function(){
+      window.location.href = "https://drive.google.com/uc?export=download&id=1afsYuO_WwhlEPS0hgFWzbK6jUoCAMHQV";
+  }
+</script>
 
 </body>
 </html>
