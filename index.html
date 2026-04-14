@@ -19,61 +19,36 @@
     .container {
       text-align: center;
       background: #1e293b;
-      padding: 30px;
+      padding: 25px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
       width: 90%;
       max-width: 420px;
     }
 
-    h2 {
-      font-size: 26px;
-      margin-bottom: 10px;
-      color: #38bdf8;
-    }
-
-    p {
-      font-size: 15px;
-      color: #cbd5f5;
-    }
-
-    .instructions {
-      text-align: left;
-      background: #020617;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
+    h2 { color: #38bdf8; }
 
     button {
       width: 100%;
       padding: 14px;
-      margin-top: 15px;
-      font-size: 16px;
+      margin-top: 10px;
+      font-size: 15px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    #preview-btn {
-      background: #64748b;
-    }
+    .active { background: #22c55e; }
+    .disabled { background: #475569; cursor: not-allowed; }
 
-    #pay-btn {
-      background: #22c55e;
-      font-weight: bold;
-    }
+    .full-course { background: #f59e0b; font-weight: bold; }
 
-    #download-btn {
-      background: #3b82f6;
-    }
-
-    #download-btn:disabled {
-      background: #475569;
-      cursor: not-allowed;
+    .instructions {
+      text-align: left;
+      background: #020617;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 13px;
     }
   </style>
 </head>
@@ -81,62 +56,82 @@
 <body>
 
 <div class="container">
+
   <h2>📊 Algorithmic Trading Course</h2>
-  <p>Learn Python-based trading strategies & automation</p>
 
-  <button id="preview-btn_0">📥 Download Free Preview</button>
+  <button onclick="downloadPreview()">📥 Free Preview</button>
 
-  <button id="pay-btn">💳 Pay ₹19 (Module 01)</button>
+  <!-- MODULE BUTTONS -->
+  <button id="m1" class="active">💳 Module 01 – ₹19</button>
+  <button id="m2" class="active">💳 Module 02 – ₹19</button>
 
-  <button id="pay-btn">💳 Pay ₹19 (Module 02)</button>
+  <button class="disabled">🔒 Module 03 – Coming Soon</button>
+  <button class="disabled">🔒 Module 04 – Coming Soon</button>
+  <button class="disabled">🔒 Module 05 – Coming Soon</button>
+  <button class="disabled">🔒 Module 06 – Coming Soon</button>
+  <button class="disabled">🔒 Module 07 – Coming Soon</button>
+  <button class="disabled">🔒 Module 08 – Coming Soon</button>
+  <button class="disabled">🔒 Module 09 – Coming Soon</button>
 
-  <button id="download-btn" disabled>⬇️ Download Full Course</button>
+  <!-- FULL COURSE -->
+  <button id="full" class="full-course">🚀 Full Course – ₹99</button>
 
-  <!-- Instructions Section -->
+  <!-- Instructions -->
   <div class="instructions">
-    <strong>📦 Download Instructions:</strong><br><br>
-
-    💻 <b>PC Users:</b><br>
-    Download ZIP and extract normally<br><br>
-
-    📱 <b>Mobile Users (Android):</b><br>
-    1. Install ZArchiver app <br>
-    2. Download the ZIP file <br>
-    3. Open and extract <br>
+    <b>📦 Download Instructions:</b><br><br>
+    💻 PC: Download ZIP → Extract<br><br>
+    📱 Android:<br>
+    1. Install ZArchiver<br>
+    2. Download ZIP<br>
+    3. Extract
   </div>
+
 </div>
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
-  var options = {
-      "key": "rzp_live_SUVyfrzGVUA4HD",
-      "amount": 1900,
-      "currency": "INR",
-      "name": "Algorithmic Trading Course",
-      "description": "Course Payment",
-      "method": { "upi": true },
 
-      "handler": function (response){
-          alert("✅ Payment Successful!");
-          document.getElementById("download-btn").disabled = false;
-      }
+function payAndDownload(name, amount, link) {
+  var options = {
+    "key": "rzp_live_SUVyfrzGVUA4HD",
+    "amount": amount,
+    "currency": "INR",
+    "name": "Algorithmic Trading Course",
+    "description": name,
+
+    "handler": function () {
+      alert("✅ Payment Successful: " + name);
+      window.location.href = link;
+    }
   };
 
   var rzp = new Razorpay(options);
+  rzp.open();
+}
 
-  document.getElementById('pay-btn').onclick = function(e){
-      rzp.open();
-      e.preventDefault();
-  }
+// MODULE LINKS
+document.getElementById("m1").onclick = function(){
+  payAndDownload("Module 01", 1900,
+  "https://drive.google.com/uc?export=download&id=1afsYuO_WwhlEPS0hgFWzbK6jUoCAMHQV");
+};
 
-  document.getElementById('preview-btn_0').onclick = function(){
-      window.location.href = "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y";
-  }
+document.getElementById("m2").onclick = function(){
+  payAndDownload("Module 02", 1900,
+  "https://drive.google.com/uc?export=download&id=1QfrlokWKhWfLoNcj48h4PsbrvjYAkguZ");
+};
 
-  document.getElementById('download-btn').onclick = function(){
-      window.location.href = "https://drive.google.com/uc?export=download&id=1afsYuO_WwhlEPS0hgFWzbK6jUoCAMHQV";
-  }
+// FULL COURSE
+document.getElementById("full").onclick = function(){
+  payAndDownload("Full Course", 9900,
+  "https://drive.google.com/uc?export=download&id=FULLCOURSE_ID");
+};
+
+// PREVIEW
+function downloadPreview(){
+  window.location.href = "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y";
+}
+
 </script>
 
 </body>
