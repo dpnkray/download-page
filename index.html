@@ -98,7 +98,8 @@ function payAndDownload(name, amount, link) {
     "amount": amount,
     "currency": "INR",
     "name": "Algorithmic Trading Course",
-    "description": name,
+    "description": "Course Payment",
+    "method": { "upi": true },
 
     "handler": function () {
       alert("✅ Payment Successful: " + name);
