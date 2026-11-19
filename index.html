@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithmic Trading Course</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+    .container {
+      box-sizing: border-box;
+      text-align: center;
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 420px;
+    }
+    h2 { color: #38bdf8; }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .active { background: #22c55e; color: #06130a; }
+    .disabled { background: #475569; color: #e2e8f0; cursor: not-allowed; }
+    .full-course { background: #f59e0b; font-weight: bold; color: #1c1917; }
+    .instructions {
+      text-align: left;
+      background: #020617;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+    button:disabled { opacity: .7; cursor: wait; }
+  </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 Algorithmic Trading Course</h2>
+
+    <button type="button" onclick="downloadPreview()">📥 Free Preview</button>
+
+    <button type="button" id="m1" class="active">💳 Module 01 – ₹19</button>
+    <button type="button" id="m2" class="active">💳 Module 02 – ₹19</button>
+
+    <button type="button" class="disabled" disabled>🔒 Module 03 – Coming Soon</button>
+    <button type="button" class="disabled" disabled>🔒 Module 04 – Coming Soon</button>
+    <button type="button" class="disabled" disabled>🔒 Module 05 – Coming Soon</button>
+    <button type="button" class="disabled" disabled>🔒 Module 06 – Coming Soon</button>
+    <button type="button" class="disabled" disabled>🔒 Module 07 – Coming Soon</button>
+    <button type="button" class="disabled" disabled>🔒 Module 08 – Coming Soon</button>
+    <button type="button" class="disabled" disabled>🔒 Module 09 – Coming Soon</button>
+
+    <button type="button" id="full" class="full-course">🚀 Full Course – ₹99</button>
+
+    <div class="instructions">
+      <b>📦 Download Instructions:</b><br><br>
+      💻 PC: Download ZIP → Extract<br><br>
+      📱 Android:<br>
+      1. Install ZArchiver<br>
+      2. Download ZIP<br>
+      3. Extract
+    </div>
+  </div>
+
+  <script>
+    // Razorpay Key ID is intended for use in the browser.
+    // Never place your Razorpay Key Secret in this file.
+    const RAZORPAY_KEY_ID = "rzp_live_SUVyfrzGVUA4HD";
+
+    const DOWNLOADS = {
+      module1: "https://drive.google.com/uc?export=download&id=1afsYuO_WwhlEPS0hgFWzbK6jUoCAMHQV",
+      module2: "https://drive.google.com/uc?export=download&id=1QfrlokWKhWfLoNcj48h4PsbrvjYAkguZ",
+      // Replace FULLCOURSE_ID with the actual Google Drive file ID.
+      fullCourse: "https://drive.google.com/uc?export=download&id=FULLCOURSE_ID"
+    };
+
+    function payAndDownload(courseName, amountInRupees, downloadUrl, button) {
+      if (!window.Razorpay) {
+        alert("Razorpay Checkout could not be loaded. Please check your internet connection and try again.");
+        return;
+      }
+
+      if (!downloadUrl || downloadUrl.includes("FULLCOURSE_ID")) {
+        alert("The download link for " + courseName + " has not been configured yet.");
+        return;
+      }
+
+      if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID.includes("PASTE_")) {
+        alert("The Razorpay Key ID has not been configured.");
+        return;
+      }
+
+      const originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Opening secure payment...";
+
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: amountInRupees * 100, // Razorpay expects paise: ₹19 = 1900
+        currency: "INR",
+        name: "Algorithmic Trading Course",
+        description: courseName,
+        method: { upi: true },
+        handler: function (response) {
+          // This follows the same client-side success flow as index_old_1.html.
+          // For production, verify the payment signature on your server before
+          // granting access to paid downloads.
+          alert("Payment completed. Your " + courseName + " download will now open.");
+          window.location.assign(downloadUrl);
+        },
+        modal: {
+          ondismiss: function () {
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        },
+        theme: { color: "#22c55e" }
+      };
+
+      try {
+        const checkout = new Razorpay(options);
+        checkout.on("payment.failed", function () {
+          button.disabled = false;
+          button.textContent = originalText;
+          alert("Payment was not completed. Please try again.");
+        });
+        checkout.open();
+      } catch (error) {
+        button.disabled = false;
+        button.textContent = originalText;
+        alert("Unable to open Razorpay Checkout. Please try again.");
+        console.error(error);
+      }
+    }
+
+    document.getElementById("m1").addEventListener("click", function () {
+      payAndDownload("Module 01", 19, DOWNLOADS.module1, this);
+    });
+
+    document.getElementById("m2").addEventListener("click", function () {
+      payAndDownload("Module 02", 19, DOWNLOADS.module2, this);
+    });
+
+    document.getElementById("full").addEventListener("click", function () {
+      payAndDownload("Full Course", 99, DOWNLOADS.fullCourse, this);
+    });
+
+    function downloadPreview() {
+      window.location.assign(
+        "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y"
+      );
+    }
+  </script>
+</body>
+</html>
