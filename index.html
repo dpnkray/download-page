@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Algorithmic Trading Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 420px;
+    }
+
+    h2 { color: #38bdf8; }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .active { background: #22c55e; }
+    .disabled { background: #475569; cursor: not-allowed; }
+
+    .full-course { background: #f59e0b; font-weight: bold; }
+
+    .instructions {
+      text-align: left;
+      background: #020617;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h2>📊 Algorithmic Trading Course</h2>
+
+  <button onclick="downloadPreview()">📥 Free Preview</button>
+
+  <!-- MODULE BUTTONS -->
+  <button id="m1" class="active">💳 Module 01 – ₹19</button>
+  <button id="m2" class="active">💳 Module 02 – ₹19</button>
+
+  <button class="disabled">🔒 Module 03 – Coming Soon</button>
+  <button class="disabled">🔒 Module 04 – Coming Soon</button>
+  <button class="disabled">🔒 Module 05 – Coming Soon</button>
+  <button class="disabled">🔒 Module 06 – Coming Soon</button>
+  <button class="disabled">🔒 Module 07 – Coming Soon</button>
+  <button class="disabled">🔒 Module 08 – Coming Soon</button>
+  <button class="disabled">🔒 Module 09 – Coming Soon</button>
+
+  <!-- FULL COURSE -->
+  <button id="full" class="full-course">🚀 Full Course – ₹99</button>
+
+  <!-- Instructions -->
+  <div class="instructions">
+    <b>📦 Download Instructions:</b><br><br>
+    💻 PC: Download ZIP → Extract<br><br>
+    📱 Android:<br>
+    1. Install ZArchiver<br>
+    2. Download ZIP<br>
+    3. Extract
+  </div>
+
+</div>
+
+<script>
+
+// Replace these three placeholders with the corresponding Razorpay
+// Payment Link URLs (not Payment Link IDs).
+const PAYMENT_LINKS = {
+  module1: "PASTE_MODULE_01_PAYMENT_LINK_URL_HERE",
+  module2: "PASTE_MODULE_02_PAYMENT_LINK_URL_HERE",
+  fullCourse: "PASTE_FULL_COURSE_PAYMENT_LINK_URL_HERE"
+};
+
+// Redirect the customer to Razorpay's hosted payment page.
+// No Razorpay API Key is needed in this HTML file.
+function openPaymentLink(paymentUrl) {
+  if (!paymentUrl || paymentUrl.includes("_HERE")) {
+    alert("Please add the Razorpay Payment Link URL first.");
+    return;
+  }
+
+  window.location.href = paymentUrl;
+}
+
+// MODULE LINKS
+document.getElementById("m1").onclick = function () {
+  openPaymentLink(PAYMENT_LINKS.module1);
+};
+
+document.getElementById("m2").onclick = function () {
+  openPaymentLink(PAYMENT_LINKS.module2);
+};
+
+// FULL COURSE
+document.getElementById("full").onclick = function () {
+  openPaymentLink(PAYMENT_LINKS.fullCourse);
+};
+
+// PREVIEW
+function downloadPreview() {
+  window.location.href =
+    "https://drive.google.com/uc?export=download&id=1Oxa3jFc4Fyoz6bZdFJtrjRYJoEonYN5y";
+}
+
+</script>
+
+</body>
+</html>
